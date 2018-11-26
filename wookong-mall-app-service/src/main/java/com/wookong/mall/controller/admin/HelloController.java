@@ -1,4 +1,4 @@
-package com.wookong.mall.controller;
+package com.wookong.mall.controller.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +22,10 @@ public class HelloController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping(value = "/ok", method = RequestMethod.GET)
+    @RequestMapping(value = "/ADMIN", method = RequestMethod.GET)
     @ResponseBody
     public String sayOK() {
-        return "OK";
+        return "ADMIN";
     }
 
-    @Autowired
-    private TestDOMapper mapper;
-    
-    @RequestMapping(value = "/db", method = RequestMethod.GET)
-    @ResponseBody
-    public String db() {
-        return mapper.selectByPrimaryKey(1L).toString();
-    }
 }
