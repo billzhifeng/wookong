@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author bill
  */
 @SpringBootApplication
-@MapperScan({ "com.wookong.mall.dal.dao" })
+//@MapperScan({ "com.wookong.mall.dal.dao" })
 public class WookongAppMain {
 
     public static void main(String[] args) {

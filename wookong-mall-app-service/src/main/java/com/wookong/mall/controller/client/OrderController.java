@@ -25,7 +25,7 @@ public class OrderController {
 	  * @param userId 会员id
 	  * @param orderType 订单类型：
 	  */
-	 @RequestMapping(value = "/order/queryUserOrders", method = RequestMethod.GET)
+	 @RequestMapping(value = "/order/queryUserOrders", method = RequestMethod.POST)
 	 @ResponseBody
 	 public BaseResp<List<OrderDTO>> queryUserOrders(Long userId,String orderType) {
 		 return null;
@@ -34,7 +34,7 @@ public class OrderController {
 	 /**
 	  * 预定
 	  */
-	 @RequestMapping(value = "/order/reserve", method = RequestMethod.GET)
+	 @RequestMapping(value = "/order/reserve", method = RequestMethod.POST)
 	 @ResponseBody
 	 public BaseResp<OrderDTO> reserve() {
 		 
@@ -45,7 +45,7 @@ public class OrderController {
 	  * 查询订单明细
 	  * @param orderId
 	  */
-	 @RequestMapping(value = "/order/queryOrderDetail", method = RequestMethod.GET)
+	 @RequestMapping(value = "/order/queryOrderDetail", method = RequestMethod.POST)
 	 @ResponseBody
 	 public BaseResp<OrderDTO> queryOrderDetail(Long orderId) {
 		 
@@ -55,7 +55,7 @@ public class OrderController {
 	 /**
 	  * 退款(不退预定款)
 	  */
-	 @RequestMapping(value = "/order/refund", method = RequestMethod.GET)
+	 @RequestMapping(value = "/order/refund", method = RequestMethod.POST)
 	 @ResponseBody
 	 public BaseResp refund() {
 		 return null;
@@ -64,7 +64,7 @@ public class OrderController {
 	 /**
 	  * 查看退款明细
 	  */
-	 @RequestMapping(value = "/order/queryRefundDetail", method = RequestMethod.GET)
+	 @RequestMapping(value = "/order/queryRefundDetail", method = RequestMethod.POST)
 	 @ResponseBody
 	 public BaseResp queryRefundDetail(Long refundId) {
 		 return null;

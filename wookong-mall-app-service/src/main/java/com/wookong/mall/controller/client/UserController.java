@@ -21,7 +21,7 @@ public class UserController {
 	/**
 	 * 会员收货地址
 	 */
-	 @RequestMapping(value = "/user/queryUserReceiveAddress", method = RequestMethod.GET)
+	 @RequestMapping(value = "/user/queryUserReceiveAddress", method = RequestMethod.POST)
 	 @ResponseBody
 	public BaseResp<Object> queryUserReceiveAddress(Long userId) {
 		
@@ -32,7 +32,7 @@ public class UserController {
 	 * 新增
 	 * @return
 	 */
-	 @RequestMapping(value = "/user/addUserReceiveAddress", method = RequestMethod.GET)
+	 @RequestMapping(value = "/user/addUserReceiveAddress", method = RequestMethod.POST)
 	 @ResponseBody
 	public BaseResp addUserReceiveAddress() {
 		
@@ -43,7 +43,7 @@ public class UserController {
 	 * 修改
 	 * @return
 	 */
-	 @RequestMapping(value = "/user/modifyUserReceiveAddress", method = RequestMethod.GET)
+	 @RequestMapping(value = "/user/modifyUserReceiveAddress", method = RequestMethod.POST)
 	 @ResponseBody
 	public BaseResp modifyUserReceiveAddress() {
 		
@@ -54,7 +54,7 @@ public class UserController {
 	 * 删除
 	 * @return
 	 */
-	 @RequestMapping(value = "/user/deleteUserReceiveAddress", method = RequestMethod.GET)
+	 @RequestMapping(value = "/user/deleteUserReceiveAddress", method = RequestMethod.POST)
 	 @ResponseBody
 	public BaseResp deleteUserReceiveAddress(Long addressId) {
 		
@@ -64,7 +64,7 @@ public class UserController {
 	/**
 	 * 修改密码
 	 */
-	 @RequestMapping(value = "/user/modifyUserPassword", method = RequestMethod.GET)
+	 @RequestMapping(value = "/user/modifyUserPassword", method = RequestMethod.POST)
 	 @ResponseBody
 	public BaseResp modifyUserPassword() {
 		

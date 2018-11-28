@@ -1,4 +1,4 @@
-package com.wookong.mall.controller.client;
+package com.wookong.mall.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -6,11 +6,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.java.common.base.BaseResp;
@@ -20,23 +17,24 @@ import com.wookong.mall.domain.user.User;
 import com.wookong.mall.domain.user.UserRepository;
 
 /**
- * 会员登录、退出
- * TODO 最好前端维护登录态
+ * 管理员登录、退出
+ * 
  * @author Administrator
  *
  */
 @RestController
-public class UserLoginController {
+public class ManagerLoginController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private UserRepository userRepository;
 	
-	final static String userSessionKey = "userId";
+	final static String userSessionKey = "manager";
+	
 	/**
 	 * 登录
 	 */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
 	public BaseResp<User> login(LoginReq req, HttpServletRequest request) {
     	 BaseResp<User> resp = BaseResp.buildSuccessResp(BaseResp.class);
          try {
@@ -66,7 +64,7 @@ public class UserLoginController {
 	/**
 	 * 退出
 	 */
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/logout", method = RequestMethod.POST)
 	public BaseResp logout(HttpServletRequest request) {
 		BaseResp<User> resp = BaseResp.buildSuccessResp(BaseResp.class);
         try {
@@ -85,19 +83,4 @@ public class UserLoginController {
         }
 	}
 
-	/**
-	 * 注册
-	 */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-	public void register() {
-		
-	}
-
-	/**
-	 * 获取用户登录信息
-	 */
-	@RequestMapping(value = "/checkUserSession", method = RequestMethod.POST)
-	public void checkUserSession() {
-
-	}
 }

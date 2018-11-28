@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -29,6 +30,7 @@ import com.mysql.jdbc.StringUtils;
  */
 @Configuration
 @EnableConfigurationProperties({ DruidDataSourceProperties.class })
+@MapperScan(value = { "com.wookong.mall.dal.dao"})
 @ConditionalOnProperty(name = "spring.druid.datasource.url", matchIfMissing = false)
 public class DruidAutoConfiguration {
 

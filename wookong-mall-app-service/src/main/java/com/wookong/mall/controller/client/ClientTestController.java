@@ -18,7 +18,7 @@ import com.wookong.mall.dal.dao.TestDOMapper;
  * @author bill
  */
 @Controller
-public class ClientController {
+public class ClientTestController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
