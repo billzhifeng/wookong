@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.github.java.common.base.BaseException;
+import com.github.java.common.utils.JavaAssert;
 import com.wookong.mall.common.dto.CategoryDTO;
-import com.wookong.mall.common.dto.CategorySkuRelationDTO;
+import com.wookong.mall.common.dto.CategorySkuMappingDTO;
 import com.wookong.mall.common.dto.SkuDTO;
-import com.wookong.mall.dal.dao.CategorySkuRelationDOMapper;
+import com.wookong.mall.common.enums.ReturnCode;
+import com.wookong.mall.dal.dao.CategorySkuMappingDOMapper;
 import com.wookong.mall.dal.dao.SkuDOMapper;
 import com.wookong.mall.dal.dataobject.CategoryDO;
 import com.wookong.mall.dal.dataobject.CategoryDOExample;
-import com.wookong.mall.dal.dataobject.CategorySkuRelationDO;
-import com.wookong.mall.dal.dataobject.CategorySkuRelationDOExample;
+import com.wookong.mall.dal.dataobject.CategorySkuMappingDO;
+import com.wookong.mall.dal.dataobject.CategorySkuMappingDOExample;
 import com.wookong.mall.dal.dataobject.SkuDO;
 import com.wookong.mall.dal.dataobject.SkuDOExample;
 
@@ -25,9 +28,9 @@ import com.wookong.mall.dal.dataobject.SkuDOExample;
 @Service
 public class SkuService {
     @Autowired
-    private SkuDOMapper dao;
+    private SkuDOMapper skuDao;
     @Autowired
-    private CategorySkuRelationDOMapper caSkuReMapperDao;
+    private CategorySkuMappingDOMapper mapMapper;
     
     /**
      * 查询全部商品
@@ -35,8 +38,8 @@ public class SkuService {
      */
     public List<SkuDTO> queryAllSKUS(){
         SkuDOExample example = new SkuDOExample();
-        SkuDOExample.Criteria cri = example.createCriteria();
-        List<SkuDO> dos = dao.selectByExample(example);
+        //SkuDOExample.Criteria cri = example.createCriteria();
+        List<SkuDO> dos = skuDao.selectByExample(example);
         List<SkuDTO> list = new ArrayList<SkuDTO>();
         
         if(!CollectionUtils.isEmpty(dos)){
@@ -54,11 +57,9 @@ public class SkuService {
      * @return
      */
     public SkuDTO querySKUById(Long skuId) {
-        SkuDTO sku = new SkuDTO();
-        SkuDO dos = dao.selectByPrimaryKey(skuId);
-        if(null!=sku ){
-            sku = convertToDTO(dos);
-        }
+        SkuDO dos = skuDao.selectByPrimaryKey(skuId);
+        JavaAssert.notNull(dos, ReturnCode.DATA_NOT_EXIST, "商品ID="+skuId+"不存在", BaseException.class);
+        SkuDTO sku = convertToDTO(dos);
         return sku;
     }
     
@@ -71,13 +72,13 @@ public class SkuService {
         List<SkuDTO> list=null;
         //根据CategoryId查询商品ID
         List<Long> skuIdList = null;
-        CategorySkuRelationDOExample caSkuReexample = new CategorySkuRelationDOExample();
-        CategorySkuRelationDOExample.Criteria caSkuRecri = caSkuReexample.createCriteria();
+        CategorySkuMappingDOExample caSkuReexample = new CategorySkuMappingDOExample();
+        CategorySkuMappingDOExample.Criteria caSkuRecri = caSkuReexample.createCriteria();
         caSkuRecri.andCategoryIdEqualTo(categoryId);
         
-        List<CategorySkuRelationDO> caSkuRes = caSkuReMapperDao.selectByExample(caSkuReexample);
+        List<CategorySkuMappingDO> caSkuRes = mapMapper.selectByExample(caSkuReexample);
         if(!CollectionUtils.isEmpty(caSkuRes)){
-            for(CategorySkuRelationDO su:caSkuRes){
+            for(CategorySkuMappingDO su:caSkuRes){
                 skuIdList.add(convertToCaSkuReDTO(su).getSkuId());
             }
         }
@@ -85,7 +86,7 @@ public class SkuService {
             SkuDOExample example = new SkuDOExample();
             SkuDOExample.Criteria cri = example.createCriteria();
             cri.andIdIn(skuIdList);
-            List<SkuDO> dos = dao.selectByExample(example);
+            List<SkuDO> dos = skuDao.selectByExample(example);
             if(!CollectionUtils.isEmpty(dos)){
                 for(SkuDO su:dos){
                     list.add(convertToDTO(su));
@@ -101,8 +102,8 @@ public class SkuService {
         return sut;
     }
     
-    private CategorySkuRelationDTO convertToCaSkuReDTO(CategorySkuRelationDO su){
-        CategorySkuRelationDTO sut = new CategorySkuRelationDTO();
+    private CategorySkuMappingDTO convertToCaSkuReDTO(CategorySkuMappingDO su){
+        CategorySkuMappingDTO sut = new CategorySkuMappingDTO();
         BeanUtils.copyProperties(su, sut);
         return sut;
     }

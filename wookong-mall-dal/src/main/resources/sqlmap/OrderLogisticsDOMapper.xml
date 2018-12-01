@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wookong.mall.dal.dao.OrderLogisticsDOMapper">
+  <resultMap id="BaseResultMap" type="com.wookong.mall.dal.dataobject.OrderLogisticsDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="Delive_time" jdbcType="TIMESTAMP" property="deliveTime" />
+    <result column="Deliver_name" jdbcType="VARCHAR" property="deliverName" />
+    <result column="Received_time" jdbcType="TIMESTAMP" property="receivedTime" />
+    <result column="Receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
+    <result column="Logistics_provider" jdbcType="VARCHAR" property="logisticsProvider" />
+    <result column="Logistics_no" jdbcType="VARCHAR" property="logisticsNo" />
+    <result column="Logistics_website_url" jdbcType="VARCHAR" property="logisticsWebsiteUrl" />
+    <result column="country_id" jdbcType="BIGINT" property="countryId" />
+    <result column="country_area_id" jdbcType="BIGINT" property="countryAreaId" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="country_code" jdbcType="VARCHAR" property="countryCode" />
+    <result column="provice" jdbcType="VARCHAR" property="provice" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="home_address" jdbcType="VARCHAR" property="homeAddress" />
+    <result column="signer_name" jdbcType="VARCHAR" property="signerName" />
+    <result column="addition" jdbcType="VARCHAR" property="addition" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="deleted" jdbcType="CHAR" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, status, Delive_time, Deliver_name, Received_time, Receiver_name, receiver_mobile, 
+    Logistics_provider, Logistics_no, Logistics_website_url, country_id, country_area_id, 
+    country, country_code, provice, province_code, home_address, signer_name, addition, 
+    operator, created_time, updated_time, deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.wookong.mall.dal.dataobject.OrderLogisticsDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_logistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="offSet !=null and length != null">
+      limit ${offSet}, ${length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_logistics
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.wookong.mall.dal.dataobject.OrderLogisticsDO">
+    insert into order_logistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="deliveTime != null">
+        Delive_time,
+      </if>
+      <if test="deliverName != null">
+        Deliver_name,
+      </if>
+      <if test="receivedTime != null">
+        Received_time,
+      </if>
+      <if test="receiverName != null">
+        Receiver_name,
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile,
+      </if>
+      <if test="logisticsProvider != null">
+        Logistics_provider,
+      </if>
+      <if test="logisticsNo != null">
+        Logistics_no,
+      </if>
+      <if test="logisticsWebsiteUrl != null">
+        Logistics_website_url,
+      </if>
+      <if test="countryId != null">
+        country_id,
+      </if>
+      <if test="countryAreaId != null">
+        country_area_id,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="countryCode != null">
+        country_code,
+      </if>
+      <if test="provice != null">
+        provice,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="homeAddress != null">
+        home_address,
+      </if>
+      <if test="signerName != null">
+        signer_name,
+      </if>
+      <if test="addition != null">
+        addition,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveTime != null">
+        #{deliveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverName != null">
+        #{deliverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivedTime != null">
+        #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsProvider != null">
+        #{logisticsProvider,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null">
+        #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsWebsiteUrl != null">
+        #{logisticsWebsiteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null">
+        #{countryId,jdbcType=BIGINT},
+      </if>
+      <if test="countryAreaId != null">
+        #{countryAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null">
+        #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provice != null">
+        #{provice,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signerName != null">
+        #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="addition != null">
+        #{addition,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wookong.mall.dal.dataobject.OrderLogisticsDOExample" resultType="java.lang.Long">
+    select count(*) from order_logistics
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wookong.mall.dal.dataobject.OrderLogisticsDO">
+    update order_logistics
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveTime != null">
+        Delive_time = #{deliveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverName != null">
+        Deliver_name = #{deliverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivedTime != null">
+        Received_time = #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverName != null">
+        Receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsProvider != null">
+        Logistics_provider = #{logisticsProvider,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null">
+        Logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsWebsiteUrl != null">
+        Logistics_website_url = #{logisticsWebsiteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null">
+        country_id = #{countryId,jdbcType=BIGINT},
+      </if>
+      <if test="countryAreaId != null">
+        country_area_id = #{countryAreaId,jdbcType=BIGINT},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null">
+        country_code = #{countryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provice != null">
+        provice = #{provice,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null">
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signerName != null">
+        signer_name = #{signerName,jdbcType=VARCHAR},
+      </if>
+      <if test="addition != null">
+        addition = #{addition,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wookong.mall.dal.dataobject.OrderLogisticsDO">
+    update order_logistics
+    set order_id = #{orderId,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      Delive_time = #{deliveTime,jdbcType=TIMESTAMP},
+      Deliver_name = #{deliverName,jdbcType=VARCHAR},
+      Received_time = #{receivedTime,jdbcType=TIMESTAMP},
+      Receiver_name = #{receiverName,jdbcType=VARCHAR},
+      receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+      Logistics_provider = #{logisticsProvider,jdbcType=VARCHAR},
+      Logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      Logistics_website_url = #{logisticsWebsiteUrl,jdbcType=VARCHAR},
+      country_id = #{countryId,jdbcType=BIGINT},
+      country_area_id = #{countryAreaId,jdbcType=BIGINT},
+      country = #{country,jdbcType=VARCHAR},
+      country_code = #{countryCode,jdbcType=VARCHAR},
+      provice = #{provice,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      home_address = #{homeAddress,jdbcType=VARCHAR},
+      signer_name = #{signerName,jdbcType=VARCHAR},
+      addition = #{addition,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

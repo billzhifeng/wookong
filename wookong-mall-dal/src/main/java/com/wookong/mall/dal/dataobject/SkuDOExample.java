@@ -1435,76 +1435,6 @@ public class SkuDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andVisableIsNull() {
-            addCriterion("visable is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableIsNotNull() {
-            addCriterion("visable is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableEqualTo(String value) {
-            addCriterion("visable =", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableNotEqualTo(String value) {
-            addCriterion("visable <>", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableGreaterThan(String value) {
-            addCriterion("visable >", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableGreaterThanOrEqualTo(String value) {
-            addCriterion("visable >=", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableLessThan(String value) {
-            addCriterion("visable <", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableLessThanOrEqualTo(String value) {
-            addCriterion("visable <=", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableLike(String value) {
-            addCriterion("visable like", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableNotLike(String value) {
-            addCriterion("visable not like", value, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableIn(List<String> values) {
-            addCriterion("visable in", values, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableNotIn(List<String> values) {
-            addCriterion("visable not in", values, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableBetween(String value1, String value2) {
-            addCriterion("visable between", value1, value2, "visable");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableNotBetween(String value1, String value2) {
-            addCriterion("visable not between", value1, value2, "visable");
-            return (Criteria) this;
-        }
-
         public Criteria andCreatedTimeIsNull() {
             addCriterion("created_time is null");
             return (Criteria) this;
@@ -1747,11 +1677,6 @@ public class SkuDOExample {
 
         public Criteria andOperatorLikeInsensitive(String value) {
             addCriterion("upper(operator) like", value.toUpperCase(), "operator");
-            return (Criteria) this;
-        }
-
-        public Criteria andVisableLikeInsensitive(String value) {
-            addCriterion("upper(visable) like", value.toUpperCase(), "visable");
             return (Criteria) this;
         }
 

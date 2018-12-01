@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategorySkuRelationDTO {
+public class CategorySkuMappingDTO {
     private Long id;
 
     private Long skuId;

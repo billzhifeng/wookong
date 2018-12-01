@@ -1,11 +1,60 @@
 1.相关约定
 	编码UTF-8
+         启动路径 http://localhost:9999/db
+2.druid 
+  C:\repository\com\alibaba\druid\1.0.29
+  $ Java -cp druid-1.0.29.jar com.alibaba.druid.filter.config.ConfigTools root
+  privateKey:MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAlJiIWhtHwHeolzUQZN5OxZXoti25HDBQHAT8Fej3mBlGUxSE6hEmeNtfFNHOD2ldU/TXhPGrE3nhiCH26nhOzwIDAQABAkAnSC97ioysT7Wsy2VbFP3D8/5B8tJlpkv3LEYr0JtrhJNx75uR/8eXKVU6NwdsmAq54WvafhcjBJGjy73EoiqJAiEA1QeLt+PE/XgZlpn72zih08NU7PKAo3KdzZPZiDMeEzMCIQCykcAwm65a37ulK8sX44oQJiEjp3+mKXxrx4UQ9HBV9QIhAIjJ2Ztws/MWBUhBBAnWKYNyr7ueU5+gX1e8Ejh0qmElAiAqrKZPd4UNdpZzfKnGhbxC67nTuX3KCfQQFdh5GtGV2QIhAMazNpk/6LYYoBmjWPSqQzWgtoS4BQvs8qI20r5IHUxs
+  publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJSYiFobR8B3qJc1EGTeTsWV6LYtuRwwUBwE/BXo95gZRlMUhOoRJnjbXxTRzg9pXVP014TxqxN54Ygh9up4Ts8CAwEAAQ==
+  password:Kme+k1oY2T/BBE7Y8JRvYYURMdDYfs7LZqp3AWQqSS1QakdWxq/4Ywpsn5QLM9I9fBe7pVaKBtTUUFLC9D9nqw==
 
-2.druid C:\repository\com\alibaba\druid\1.0.29
-$ Java -cp druid-1.0.29.jar com.alibaba.druid.filter.config.ConfigTools root
-privateKey:MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAlJiIWhtHwHeolzUQZN5OxZXoti25HDBQHAT8Fej3mBlGUxSE6hEmeNtfFNHOD2ldU/TXhPGrE3nhiCH26nhOzwIDAQABAkAnSC97ioysT7Wsy2VbFP3D8/5B8tJlpkv3LEYr0JtrhJNx75uR/8eXKVU6NwdsmAq54WvafhcjBJGjy73EoiqJAiEA1QeLt+PE/XgZlpn72zih08NU7PKAo3KdzZPZiDMeEzMCIQCykcAwm65a37ulK8sX44oQJiEjp3+mKXxrx4UQ9HBV9QIhAIjJ2Ztws/MWBUhBBAnWKYNyr7ueU5+gX1e8Ejh0qmElAiAqrKZPd4UNdpZzfKnGhbxC67nTuX3KCfQQFdh5GtGV2QIhAMazNpk/6LYYoBmjWPSqQzWgtoS4BQvs8qI20r5IHUxs
-publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJSYiFobR8B3qJc1EGTeTsWV6LYtuRwwUBwE/BXo95gZRlMUhOoRJnjbXxTRzg9pXVP014TxqxN54Ygh9up4Ts8CAwEAAQ==
-password:Kme+k1oY2T/BBE7Y8JRvYYURMdDYfs7LZqp3AWQqSS1QakdWxq/4Ywpsn5QLM9I9fBe7pVaKBtTUUFLC9D9nqw==
+3.设计
+  全球地区：国家、省份（州、国家一级地域）
+  仓库：全球几个仓库，位于不同国家。（新增需求）
+  库存：每个仓库商品数量
+  发货：每个库存负责发送周边配置好的国家（新增需求）
 
-3.启动路径 http://localhost:9999/db
-	
+
+4.订单规则
+
+ 4.1 订单模式
+  订单模式：RESERVE预售、NORMAL普通订单
+  
+ 4.2 金额规则：
+ order_amount  订单金额(分)
+ discount_amount 优惠折扣金额(分)
+ freight_amount 运费
+ settlement_amount 结算应付(分)=订单金额-优惠+运费
+ 
+ reserve_amount 定金(预售才用)
+ tail_amount 尾款(预售才用)=结算应付-定金
+ 
+ paid_amount = 已付定金 + 已付尾款
+
+ 4.3 状态规则：
+   支付状态：wait_pay未付款，wait_tail_pay未付尾款，paid已付款
+   物流状态：wait_deliver未发货,wait_receive已发货待收货,received已收货
+
+   预售模式状态流转： wait_pay -> wait_tail_pay	 -> paid（生成物流单，状态未发货）、订单物流状态wait_deliver
+   非预售模式状态流转： wait_pay -> paid（生成物流单，状态未发货）、订单物流状态wait_deliver
+  
+  物流状态流转：wait_deliver -> wait_receive(订单物流状态同步更改) -> receivedwait_receive(订单物流状态同步更改)
+  
+  
+  refund_status 退货状态
+    wait_accept待受理,accept已受理,send_back寄回中（已发货才需要）,refunding 资金退款中,rejected拒绝,closed完成
+9.待扩展
+   物流订单：每个仓库人员可以筛选，规则这个仓库的物流订单
+  管理员角色、权限区分
+  优惠折扣
+  卖家服务
+  
+  10.备用sql
+  
+ALTER TABLE warehouse_sku_stock ADD COLUMN addition VARCHAR(512) COMMENT '扩展';
+ALTER TABLE warehouse_sku_stock ADD COLUMN operator VARCHAR(128) COMMENT '操作人员';
+ALTER TABLE warehouse_sku_stock ADD COLUMN created_time DATETIME NOT NULL COMMENT '创建时间';
+ALTER TABLE warehouse_sku_stock ADD COLUMN updated_time DATETIME NOT NULL COMMENT '更新时间';
+ALTER TABLE warehouse_sku_stock ADD COLUMN deleted CHAR(1) DEFAULT 'N' NOT NULL COMMENT 'N有效，Y被删除';
+
+  

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.java.common.base.BaseResp;
 
@@ -14,7 +15,7 @@ import com.github.java.common.base.BaseResp;
  * @author Administrator
  *
  */
-@Controller
+@RestController
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -22,7 +23,6 @@ public class UserController {
 	 * 会员收货地址
 	 */
 	 @RequestMapping(value = "/user/queryUserReceiveAddress", method = RequestMethod.POST)
-	 @ResponseBody
 	public BaseResp<Object> queryUserReceiveAddress(Long userId) {
 		
 		return null;
@@ -33,7 +33,6 @@ public class UserController {
 	 * @return
 	 */
 	 @RequestMapping(value = "/user/addUserReceiveAddress", method = RequestMethod.POST)
-	 @ResponseBody
 	public BaseResp addUserReceiveAddress() {
 		
 		return null;
@@ -44,7 +43,6 @@ public class UserController {
 	 * @return
 	 */
 	 @RequestMapping(value = "/user/modifyUserReceiveAddress", method = RequestMethod.POST)
-	 @ResponseBody
 	public BaseResp modifyUserReceiveAddress() {
 		
 		return null;
@@ -55,7 +53,6 @@ public class UserController {
 	 * @return
 	 */
 	 @RequestMapping(value = "/user/deleteUserReceiveAddress", method = RequestMethod.POST)
-	 @ResponseBody
 	public BaseResp deleteUserReceiveAddress(Long addressId) {
 		
 		return null;
@@ -65,7 +62,6 @@ public class UserController {
 	 * 修改密码
 	 */
 	 @RequestMapping(value = "/user/modifyUserPassword", method = RequestMethod.POST)
-	 @ResponseBody
 	public BaseResp modifyUserPassword() {
 		
 		return null;

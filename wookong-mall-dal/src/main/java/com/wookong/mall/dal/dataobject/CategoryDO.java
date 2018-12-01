@@ -17,8 +17,6 @@ public class CategoryDO {
 
     private String operator;
 
-    private String visable;
-
     private String deleted;
 
     private Date createdTime;
@@ -79,14 +77,6 @@ public class CategoryDO {
 
     public void setOperator(String operator) {
         this.operator = operator == null ? null : operator.trim();
-    }
-
-    public String getVisable() {
-        return visable;
-    }
-
-    public void setVisable(String visable) {
-        this.visable = visable == null ? null : visable.trim();
     }
 
     public String getDeleted() {

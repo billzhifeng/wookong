@@ -11,9 +11,6 @@ import com.github.java.common.base.Printable;
  */
 public class OrderDTO extends Printable implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5271439399108925842L;
 
 }

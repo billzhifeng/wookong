@@ -9,7 +9,6 @@
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="addition" jdbcType="VARCHAR" property="addition" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
-    <result column="visable" jdbcType="CHAR" property="visable" />
     <result column="deleted" jdbcType="CHAR" property="deleted" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
@@ -44,8 +43,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, display_name_cn, display_name_en, level, parent_id, addition, operator, visable, 
-    deleted, created_time, updated_time
+    id, display_name_cn, display_name_en, level, parent_id, addition, operator, deleted, 
+    created_time, updated_time
   </sql>
   <select id="selectByExample" parameterType="com.wookong.mall.dal.dataobject.CategoryDOExample" resultMap="BaseResultMap">
     select
@@ -95,9 +94,6 @@
       <if test="operator != null">
         operator,
       </if>
-      <if test="visable != null">
-        visable,
-      </if>
       <if test="deleted != null">
         deleted,
       </if>
@@ -129,9 +125,6 @@
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="visable != null">
-        #{visable,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=CHAR},
@@ -171,9 +164,6 @@
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="visable != null">
-        visable = #{visable,jdbcType=CHAR},
-      </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=CHAR},
       </if>
@@ -194,7 +184,6 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       addition = #{addition,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
-      visable = #{visable,jdbcType=CHAR},
       deleted = #{deleted,jdbcType=CHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}

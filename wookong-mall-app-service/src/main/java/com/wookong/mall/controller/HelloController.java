@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.wookong.mall.dal.dao.TestDOMapper;
 
 /**
  * 测试controller
@@ -28,12 +27,12 @@ public class HelloController {
         return "OK";
     }
 
-    @Autowired
-    private TestDOMapper mapper;
-    
-    @RequestMapping(value = "/db", method = RequestMethod.GET)
-    @ResponseBody
-    public String db() {
-        return mapper.selectByPrimaryKey(1L).toString();
-    }
+//    @Autowired
+//    private TestDOMapper mapper;
+//    
+//    @RequestMapping(value = "/db", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String db() {
+//        return mapper.selectByPrimaryKey(1L).toString();
+//    }
 }

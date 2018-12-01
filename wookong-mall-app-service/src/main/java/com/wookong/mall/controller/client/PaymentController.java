@@ -1,10 +1,13 @@
 package com.wookong.mall.controller.client;
 
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * 支付相关
  * @author Administrator
  *
  */
+@RestController
 public class PaymentController {
 	
 	 /**

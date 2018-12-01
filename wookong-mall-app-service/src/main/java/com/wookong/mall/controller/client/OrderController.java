@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.java.common.base.BaseResp;
 import com.wookong.mall.common.dto.OrderDTO;
@@ -16,7 +17,7 @@ import com.wookong.mall.common.dto.OrderDTO;
  * 订单接口
  * @author Administrator
  */
-@Controller
+@RestController
 public class OrderController {
 	 private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -26,7 +27,6 @@ public class OrderController {
 	  * @param orderType 订单类型：
 	  */
 	 @RequestMapping(value = "/order/queryUserOrders", method = RequestMethod.POST)
-	 @ResponseBody
 	 public BaseResp<List<OrderDTO>> queryUserOrders(Long userId,String orderType) {
 		 return null;
 	 }
@@ -35,7 +35,6 @@ public class OrderController {
 	  * 预定
 	  */
 	 @RequestMapping(value = "/order/reserve", method = RequestMethod.POST)
-	 @ResponseBody
 	 public BaseResp<OrderDTO> reserve() {
 		 
 		 return null;
@@ -46,7 +45,6 @@ public class OrderController {
 	  * @param orderId
 	  */
 	 @RequestMapping(value = "/order/queryOrderDetail", method = RequestMethod.POST)
-	 @ResponseBody
 	 public BaseResp<OrderDTO> queryOrderDetail(Long orderId) {
 		 
 		 return null;
@@ -56,7 +54,6 @@ public class OrderController {
 	  * 退款(不退预定款)
 	  */
 	 @RequestMapping(value = "/order/refund", method = RequestMethod.POST)
-	 @ResponseBody
 	 public BaseResp refund() {
 		 return null;
 	 }
@@ -65,7 +62,6 @@ public class OrderController {
 	  * 查看退款明细
 	  */
 	 @RequestMapping(value = "/order/queryRefundDetail", method = RequestMethod.POST)
-	 @ResponseBody
 	 public BaseResp queryRefundDetail(Long refundId) {
 		 return null;
 	 }

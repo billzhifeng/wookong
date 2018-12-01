@@ -22,7 +22,6 @@
     <result column="pay_tail_end_time" jdbcType="TIMESTAMP" property="payTailEndTime" />
     <result column="addition" jdbcType="VARCHAR" property="addition" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
-    <result column="visable" jdbcType="CHAR" property="visable" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="deleted" jdbcType="CHAR" property="deleted" />
@@ -60,7 +59,7 @@
     id, language, display_name, simple_introduce, head_url_imgs, description, body_url_imgs, 
     currency_type, ori_amount, sale_amount, sale_status, sale_mode, reserve_amount, tail_amount, 
     reserve_start_time, reserve_end_time, pay_tail_start_time, pay_tail_end_time, addition, 
-    operator, visable, created_time, updated_time, deleted
+    operator, created_time, updated_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.wookong.mall.dal.dataobject.SkuDOExample" resultMap="BaseResultMap">
     select
@@ -149,9 +148,6 @@
       <if test="operator != null">
         operator,
       </if>
-      <if test="visable != null">
-        visable,
-      </if>
       <if test="createdTime != null">
         created_time,
       </if>
@@ -222,9 +218,6 @@
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="visable != null">
-        #{visable,jdbcType=CHAR},
       </if>
       <if test="createdTime != null">
         #{createdTime,jdbcType=TIMESTAMP},
@@ -303,9 +296,6 @@
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="visable != null">
-        visable = #{visable,jdbcType=CHAR},
-      </if>
       <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
       </if>
@@ -339,7 +329,6 @@
       pay_tail_end_time = #{payTailEndTime,jdbcType=TIMESTAMP},
       addition = #{addition,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
-      visable = #{visable,jdbcType=CHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=CHAR}
