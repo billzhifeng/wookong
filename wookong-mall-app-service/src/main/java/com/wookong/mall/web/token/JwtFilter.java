@@ -39,6 +39,7 @@ public class JwtFilter extends GenericFilterBean {
             logger.error("jwt拦截header中Authorization为空");
             throw new BaseException(ReturnCode.NOT_LOGIN, "Missing or invalid Authorization header.");
         }
+        //TODO 另一种返回http302
 
         //解密token，拿到里面的对象claims,并获得user
         UserDTO user = TokenHelper.verifyToken(authHeaderToken);

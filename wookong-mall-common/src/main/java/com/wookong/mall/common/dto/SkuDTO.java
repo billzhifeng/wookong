@@ -11,14 +11,14 @@ import lombok.Setter;
 /**
  * sku信息
  * @author Administrator
- *
  */
 @Getter
 @Setter
 public class SkuDTO extends Printable implements Serializable{
 
-	private static final long serialVersionUID = 1768060995128179717L;
-	private Long id;
+    private static final long serialVersionUID = -6485150297101121024L;
+
+    private Long id;
 
     private String language;
 
@@ -58,12 +58,11 @@ public class SkuDTO extends Printable implements Serializable{
 
     private String operator;
 
-    private String visable;
-
     private Date createdTime;
 
     private Date updatedTime;
 
     private String deleted;
+
 
 }

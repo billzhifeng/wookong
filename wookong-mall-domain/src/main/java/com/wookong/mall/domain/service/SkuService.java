@@ -7,30 +7,57 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.github.java.common.base.BaseException;
 import com.github.java.common.utils.JavaAssert;
-import com.wookong.mall.common.dto.CategoryDTO;
 import com.wookong.mall.common.dto.CategorySkuMappingDTO;
 import com.wookong.mall.common.dto.SkuDTO;
 import com.wookong.mall.common.enums.ReturnCode;
 import com.wookong.mall.dal.dao.CategorySkuMappingDOMapper;
 import com.wookong.mall.dal.dao.SkuDOMapper;
-import com.wookong.mall.dal.dataobject.CategoryDO;
-import com.wookong.mall.dal.dataobject.CategoryDOExample;
 import com.wookong.mall.dal.dataobject.CategorySkuMappingDO;
 import com.wookong.mall.dal.dataobject.CategorySkuMappingDOExample;
 import com.wookong.mall.dal.dataobject.SkuDO;
 import com.wookong.mall.dal.dataobject.SkuDOExample;
 
-
+/**
+ * 商品管理
+ */
 @Service
 public class SkuService {
     @Autowired
     private SkuDOMapper skuDao;
     @Autowired
     private CategorySkuMappingDOMapper mapMapper;
+    
+    /**
+     * 新增
+     * @param src
+     */
+    @Transactional(rollbackFor = Throwable.class)
+    public void addSku(SkuDTO src){
+        //TODO
+    }
+    
+    /**
+     * 修改
+     * @param src
+     */
+    @Transactional(rollbackFor = Throwable.class)
+    public void modifySku(SkuDTO src){
+        //TODO
+    }
+    
+    /**
+     * 删除
+     * @param src
+     */
+    @Transactional(rollbackFor = Throwable.class)
+    public void deleteSku(SkuDTO src){
+        //TODO
+    }
     
     /**
      * 查询全部商品
