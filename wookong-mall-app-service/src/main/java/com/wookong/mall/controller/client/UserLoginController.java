@@ -6,22 +6,24 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.java.common.base.BaseException;
 import com.github.java.common.base.BaseResp;
+import com.github.java.common.utils.JavaAssert;
+import com.github.java.common.utils.StringUtils;
+import com.wookong.mall.common.dto.UserDTO;
 import com.wookong.mall.common.enums.ReturnCode;
 import com.wookong.mall.controller.client.req.LoginReq;
+import com.wookong.mall.controller.client.req.UserRegisterReq;
 import com.wookong.mall.domain.user.User;
 import com.wookong.mall.domain.user.UserRepository;
+import com.wookong.mall.web.token.TokenHelper;
 
 /**
  * 会员登录、退出
- * TODO 最好前端维护登录态
  * @author Administrator
  *
  */
@@ -31,73 +33,86 @@ public class UserLoginController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	final static String userSessionKey = "userId";
 	/**
 	 * 登录
 	 */
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-	public BaseResp<User> login(LoginReq req, HttpServletRequest request) {
-    	 BaseResp<User> resp = BaseResp.buildSuccessResp(BaseResp.class);
+	public BaseResp<UserDTO> login(LoginReq req, HttpServletRequest request) {
+    	 BaseResp<UserDTO> resp = BaseResp.buildSuccessBaseResp();
          try {
-             logger.info("登录请求:loginName:{}", req.getLoginName());
+             JavaAssert.notNull(req, ReturnCode.PARAM_ILLEGLE, "登录请求为空", BaseException.class);
+             JavaAssert.isTrue(StringUtils.isNotBlank(req.getLoginName()), ReturnCode.PARAM_ILLEGLE, "登录名为空", BaseException.class);
+             JavaAssert.isTrue(StringUtils.isNotBlank(req.getPasswd()), ReturnCode.PARAM_ILLEGLE, "登录密码为空", BaseException.class);
+             String passwd = req.getPasswd();
+             req.setPasswd(null);
+             
+             logger.info("会员登录请求:loginName:{}", req.getLoginName());
              User user = userRepository.loadByLoginName(req.getLoginName());
              if (null == user) {
                  resp.setReturnCode(ReturnCode.DATA_NOT_EXIST.getCode());
                  resp.setReturnMsg("登录名为 " + req.getLoginName() + " 用户不存在");
                  return resp;
              }
-             if (user.getPasswd().equals(req.getPasswd())) {
-                 user.setPasswd(null);
-                 HttpSession session = request.getSession();
-                 session.setAttribute(userSessionKey, user);
-             } else {
+             if (!user.getPassword().equals(passwd)) {
                  resp.setReturnCode(ReturnCode.DATA_NOT_EXIST.getCode());
                  resp.setReturnMsg("用户名或密码不正确");
              }
-             resp.setData(user);
-             return resp;
+             
+             String token = TokenHelper.getToken(user.getId(),user.getLoginName());
+             logger.info("会员:{},生成登录token:{}",req.getLoginName(),token);
+             //TODO 放到缓冲中，多久失效
+             
+             UserDTO userDTO = new UserDTO();
+             userDTO.setId(user.getId());
+             userDTO.setLoginName(user.getLoginName());
+             userDTO.setAuthToken(token);
+             resp.setData(userDTO);
+         }catch(BaseException e){
+             logger.info("登录发生自定义异常,req:{}", req, e);
+             resp = BaseResp.buildFailResp(e, BaseResp.class);
+             
          } catch (Exception e) {
              logger.error("登录异常,req:{}", req, e);
-             return BaseResp.buildFailResp("登录失败", BaseResp.class);
+             resp =  BaseResp.buildFailResp("登录失败", BaseResp.class);
+             
+         }finally{
+             logger.info("会员登录返回:{},登录请求：{}",resp,req);
          }
-	}
-
-	/**
-	 * 退出
-	 */
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public BaseResp logout(HttpServletRequest request) {
-		BaseResp<User> resp = BaseResp.buildSuccessResp(BaseResp.class);
-        try {
-            logger.info("收到退出请求");
-            HttpSession session = request.getSession();
-            if(null!= session.getAttribute(userSessionKey)) {
-            	logger.info("已登录,执行退出操作开始");
-            	session.removeAttribute(userSessionKey);
-            	logger.info("已登录,执行退出操作完成");
-            }
-            resp.setReturnMsg("退出成功");
-            return resp;
-        } catch (Exception e) {
-            logger.error("退出异常", e);
-            return BaseResp.buildFailResp("退出失败", BaseResp.class);
-        }
+         return resp;
 	}
 
 	/**
 	 * 注册
 	 */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-	public void register() {
-		
-	}
+	public void register(UserRegisterReq req) {
+		//TODO
+	}  
 
 	/**
-	 * 获取用户登录信息
+	 * 获取用户登录信息,从token获取
 	 */
-	@RequestMapping(value = "/checkUserSession", method = RequestMethod.POST)
-	public void checkUserSession() {
-
+	@SuppressWarnings("unchecked")
+    @RequestMapping(value = "/user/getUserInfo", method = RequestMethod.POST)
+	public BaseResp<UserDTO> checkUserSession(HttpServletRequest request) {
+	    logger.info("获取用户登录信息开始");
+	    BaseResp<UserDTO> resp = BaseResp.buildSuccessBaseResp();
+	    try {
+	        UserDTO u = (UserDTO)request.getAttribute("user");
+	        resp.setData(u);
+	        
+	    }catch(BaseException e){
+            logger.info("获取用户登录信息,发生自定义异常,req:{}", e);
+            resp = BaseResp.buildFailResp(e, BaseResp.class);
+            
+        } catch (Exception e) {
+            logger.error("获取用户登录信息,发生未知异常,req:{}", e);
+            resp = BaseResp.buildFailResp("登录失败", BaseResp.class);
+            
+        }finally{
+            logger.info("会员登录返回:{},登录请求：{}",resp);
+        }
+	    return resp;
 	}
 }

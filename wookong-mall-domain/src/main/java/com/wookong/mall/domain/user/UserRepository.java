@@ -15,7 +15,10 @@ public class UserRepository {
 	 * @return
 	 */
 	public User loadByLoginName(String userName) {
-		
-		return null;
+	    User u = new User();
+	    u.setId(999888L);
+	    u.setLoginName("billzhifeng");
+	    u.setPassword("123456");
+		return u;
 	}
 }

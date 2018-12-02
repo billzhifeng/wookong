@@ -2,12 +2,12 @@ package com.wookong.mall.controller.client;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.java.common.base.BaseResp;
@@ -27,7 +27,9 @@ public class OrderController {
 	  * @param orderType 订单类型：
 	  */
 	 @RequestMapping(value = "/order/queryUserOrders", method = RequestMethod.POST)
-	 public BaseResp<List<OrderDTO>> queryUserOrders(Long userId,String orderType) {
+	 public BaseResp<List<OrderDTO>> queryUserOrders(HttpServletRequest request,Long userId,String orderType) {
+	     
+	     String token = request.getHeader("token");
 		 return null;
 	 }
 	 

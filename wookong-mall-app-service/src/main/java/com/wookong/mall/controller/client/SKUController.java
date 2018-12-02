@@ -43,7 +43,7 @@ public class SKUController {
     @RequestMapping(value = "/sku/queryAllSKUS", method = RequestMethod.POST)
     public BaseResp<List<SkuDTO>> queryAllSKUS() {
         logger.info("查询全部商品开始");
-        BaseResp<List<SkuDTO>> resp = BaseResp.buildSuccessResp(BaseResp.class);
+        BaseResp<List<SkuDTO>> resp = BaseResp.buildSuccessBaseResp();
         try{
             List<SkuDTO> skulist=skuService.queryAllSKUS();
             resp.setData(skulist);
@@ -67,7 +67,7 @@ public class SKUController {
     public BaseResp<SkuDTO> querySKUById(@PathVariable Long skuId) {
         
         logger.info("根据商品ID:{}查询商品开始",skuId);
-        BaseResp<SkuDTO> resp = null;
+        BaseResp<SkuDTO> resp = BaseResp.buildSuccessBaseResp();
         try{
             SkuDTO sku = skuService.querySKUById(skuId);
         }catch(Exception e){
@@ -86,7 +86,7 @@ public class SKUController {
     public BaseResp<List<SkuDTO>> queryCategorySKUS(@PathVariable Long categoryId) {
         
         logger.info("根据分类ID查询商品开始",categoryId);
-        BaseResp<List<SkuDTO>> resp = BaseResp.buildSuccessResp(BaseResp.class);
+        BaseResp<List<SkuDTO>> resp = BaseResp.buildSuccessBaseResp();
         try{
             List<SkuDTO> skulist = skuService.queryCategorySKUS(categoryId);
             resp.setData(skulist);
@@ -105,7 +105,7 @@ public class SKUController {
     @RequestMapping(value = "/sku/queryAllCategorys", method = RequestMethod.POST)
     public BaseResp<List<CategoryDTO>> queryAllCategorys() {
         logger.info("查询全部分类开始");
-        BaseResp<List<CategoryDTO>> resp =  BaseResp.buildSuccessResp(BaseResp.class);
+        BaseResp<List<CategoryDTO>> resp =  BaseResp.buildSuccessBaseResp();
         try{
             List<CategoryDTO> list = categoryService.loadAllCategorys();
             resp.setData(list);

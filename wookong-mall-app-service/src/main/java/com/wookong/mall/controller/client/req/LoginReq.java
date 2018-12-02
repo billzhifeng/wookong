@@ -2,6 +2,8 @@ package com.wookong.mall.controller.client.req;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Transient;
+
 import com.github.java.common.base.Printable;
 
 import lombok.Getter;
@@ -17,6 +19,7 @@ public class LoginReq extends Printable implements Serializable {
 
 	private static final long serialVersionUID = -8713759835176313628L;
 	private String loginName;
+	
     private String passwd;
 
 }

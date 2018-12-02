@@ -15,7 +15,9 @@ public enum ReturnCode implements BaseEnum {
     
     NOT_LOGIN(104, "未登录"),
     
-    NO_AUTH(403, "无权限");
+    NO_AUTH(403, "无权限"),
+    
+    SYSTEM_ERROR(999,"系统异常"),;
     ReturnCode(int code, String desc) {
         this.code = code;
         this.desc = desc;

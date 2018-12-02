@@ -1,27 +1,37 @@
 package com.wookong.mall.domain.user;
 
+import java.util.Date;
+
 import com.github.java.common.base.Printable;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 会员
+ * 
  * @author Administrator
- *
  */
+@Setter
+@Getter
 public class User extends Printable {
-	
-	private static final long serialVersionUID = 1L;
-	private String userName;
-    private String passwd;
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
+
+    private static final long serialVersionUID = 1L;
+    private Long              id;
+
+    private String            loginName;
+
+    private String            password;
+
+    private Date              redisterTime;
+
+    private String            addition;
+
+    private String            operator;
+
+    private Date              createdTime;
+
+    private Date              updatedTime;
+
+    private String            deleted;
 }

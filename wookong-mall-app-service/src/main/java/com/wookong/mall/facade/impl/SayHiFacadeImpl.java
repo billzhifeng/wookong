@@ -5,7 +5,7 @@ import com.wookong.mall.facade.SayHiFacade;
 import com.wookong.mall.facade.req.SayHiReq;
 
 /**
- * 样例
+ * 样例,rpc接口
  * 
  * @author bill
  * @date 2018年11月27日 下午9:44:26

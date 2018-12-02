@@ -45,14 +45,15 @@ public class ManagerLoginController {
                  resp.setReturnMsg("登录名为 " + req.getLoginName() + " 用户不存在");
                  return resp;
              }
-             if (user.getPasswd().equals(req.getPasswd())) {
-                 user.setPasswd(null);
-                 HttpSession session = request.getSession();
-                 session.setAttribute(userSessionKey, user);
-             } else {
-                 resp.setReturnCode(ReturnCode.DATA_NOT_EXIST.getCode());
-                 resp.setReturnMsg("用户名或密码不正确");
-             }
+             //TODO
+//             if (user.getPasswd().equals(req.getPasswd())) {
+//                 
+//                 HttpSession session = request.getSession();
+//                 session.setAttribute(userSessionKey, user);
+//             } else {
+//                 resp.setReturnCode(ReturnCode.DATA_NOT_EXIST.getCode());
+//                 resp.setReturnMsg("用户名或密码不正确");
+//             }
              resp.setData(user);
              return resp;
          } catch (Exception e) {
