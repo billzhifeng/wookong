@@ -1,3 +1,20 @@
+工作任务
+ wookong-mall-app-servie 系统入口
+   controller
+     |-client 客户端代码
+       |-orderController 订单服务 
+       |-paymentController 支付服务
+       |-refundController 退货、退款服务
+       |-skuController 商品服务 - 杨
+       |-userController 会员服务(收货地址）- 杨
+       |-UserLoginController 登录、注册服务
+       |-
+     |-admin 管理后台代码
+     |-notify 接受三方支付回调代码
+     
+登录拦截token
+  180分钟过期
+
 1.相关约定
 	编码UTF-8
          启动路径 http://localhost:9999/db

@@ -50,7 +50,7 @@ public class TokenHelper {
             token = JWT.create().withHeader(map)//header
                     .withClaim("userId", userId.intValue())//payload
                     .withClaim("loginName", loginName)//payload
-                    .withClaim("startTime", DateUtil.formatDate(new Date(), DateUtil.longFormat))//payload
+                    //.withClaim("startTime", DateUtil.formatDate(new Date(), DateUtil.longFormat))//payload
                     .sign(Algorithm.HMAC256(SECRET));//签证信息加密
         } catch (IllegalArgumentException | JWTCreationException | UnsupportedEncodingException e) {
             logger.error("生成token异常,userId:{},loginName:{}", userId, loginName);
@@ -80,20 +80,20 @@ public class TokenHelper {
             JavaAssert.isTrue(StringUtils.isNotBlank(claims.get("loginName").asString()), ReturnCode.NOT_LOGIN, "未登录", BaseException.class);
             JavaAssert.isTrue(null != claims.get("userId").asInt(), ReturnCode.NOT_LOGIN, "未登录", BaseException.class);
             
-            String startTimeStr = claims.get("startTime").asString();
-            try {
-                Date startDate = DateUtil.parseDate(startTimeStr, DateUtil.longFormat);
-                long diffMinutes = DateUtil.getDiffMinutes(new Date(),startDate);
-                JavaAssert.isTrue(tokenExpireMinutes>diffMinutes, ReturnCode.NOT_LOGIN, "登录失效,请重新登录", BaseException.class);
-            
-                //过半自动延时
-                if(diffMinutes>(tokenExpireMinutes/2)){
-                     //TODO 刷新服务端token缓冲有效时间为：当前时间+tokenExpireMinutes
-                }
-            } catch (ParseException e) {
-                logger.error("验证token异常,时间格式不对,token:{}", token);
-                throw new BaseException(ReturnCode.PARAM_ILLEGLE, "token格式异常");
-            }
+//            String startTimeStr = claims.get("startTime").asString();
+//            try {
+//                Date startDate = DateUtil.parseDate(startTimeStr, DateUtil.longFormat);
+//                long diffMinutes = DateUtil.getDiffMinutes(new Date(),startDate);
+//                JavaAssert.isTrue(tokenExpireMinutes>diffMinutes, ReturnCode.NOT_LOGIN, "登录失效,请重新登录", BaseException.class);
+//            
+//                //过半自动延时
+//                if(diffMinutes>(tokenExpireMinutes/2)){
+//                     //TODO 刷新服务端token缓冲有效时间为：当前时间+tokenExpireMinutes
+//                }
+//            } catch (ParseException e) {
+//                logger.error("验证token异常,时间格式不对,token:{}", token);
+//                throw new BaseException(ReturnCode.PARAM_ILLEGLE, "token格式异常");
+//            }
             
             UserDTO user = new UserDTO();
             user.setId(claims.get("userId").asInt().longValue());
